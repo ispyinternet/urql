@@ -1,16 +1,8 @@
-import { setContext, getContext } from 'svelte';
 import { Client, ClientOptions } from '@urql/core';
 
-const CLIENT = '$$_URQL';
+let client = new Client({ url: '/graphql' });
 
-export const getClient = (): Client => getContext(CLIENT);
-
-export const setClient = (client: Client): void => {
-  setContext(CLIENT, client);
+export const setClient = (args: ClientOptions): void => {
+  client = new Client(args);
 };
-
-export const initClient = (args: ClientOptions): Client => {
-  const client = new Client(args);
-  setClient(client);
-  return client;
-};
+export const getClient = (): Client => client;

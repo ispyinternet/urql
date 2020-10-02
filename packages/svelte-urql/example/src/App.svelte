@@ -1,39 +1,33 @@
 <script>
-  import { initClient, query } from '../..';
+  import { setClient, query } from '../..';
 
-  initClient({ url: "https://0ufyz.sse.codesandbox.io" });
+  setClient({ url: "https://0ufyz.sse.codesandbox.io" });
 
   let i = 0;
 
-  const todosQuery = query({
+  let pause = true;
+  let first = 0;
+  const todos = query({
     query: `
-      query {
-        todos {
-          id
-          text
-          complete
-        }
+      query ($first: Int!, $skip: Int) {
+      todos(first: $first, skip: $skip) {
+        id
       }
-    `,
+    }`,
+    pause
   });
 
-  $: todos = todosQuery({ pause: true });
-
-  const execute = () => todosQuery().then();
+  $: todos.execute({ pause, variables: { first } });
 </script>
 
-{#if $todos.fetching}
-  Loading...
-{:else if $todos.error}
-  Oh no! {$todos.error.message}
-{:else if !$todos.data}
-  No data
-{:else}
-  <ul>
-    {#each $todos.data.todos as todo}
-      <li>{todo.text}</li>
-    {/each}
-  </ul>
+{#if $todos.fetching} Loading... {:else if $todos.error} Oh no! {$todos.error.message} {:else if !$todos.data} No data {:else}
+<ul>
+  {#each $todos.data.todos as todo}
+  <li>{todo.text}</li>
+  {/each}
+</ul>
 {/if}
 
-<button on:click={execute}>Execute</button>
+<button on:click="{() => pause = false}">Execute</button>
+<button on:click="{() => first+=10}">next</button>
+<button on:click="{() => pause = true}">pause</button>

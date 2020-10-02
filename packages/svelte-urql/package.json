@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "graphql": "^15.1.0",
-    "svelte": "^3.20.0"
+    "svelte": "^3.29.0"
   },
   "publishConfig": {
     "access": "public"

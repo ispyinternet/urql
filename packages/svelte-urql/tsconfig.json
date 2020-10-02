@@ -1,13 +1,8 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src"],
+  "include": ["src/stores"],
+  "target": "ES2019",
   "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "urql": ["../../node_modules/urql/src"],
-      "*-urql": ["../../node_modules/*-urql/src"],
-      "@urql/core/*": ["../../node_modules/@urql/core/src/*"],
-      "@urql/*": ["../../node_modules/@urql/*/src"]
-    }
+    "baseUrl": "./"
   }
 }
