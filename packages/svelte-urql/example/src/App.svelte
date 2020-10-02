@@ -17,7 +17,7 @@
     pause
   });
 
-  $: todos.execute({ pause, variables: { first } });
+  $: todos.onChange({ pause, variables: { first } });
 </script>
 
 {#if $todos.fetching} Loading... {:else if $todos.error} Oh no! {$todos.error.message} {:else if !$todos.data} No data {:else}

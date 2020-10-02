@@ -1,5 +1,5 @@
 import { Source } from 'wonka';
-import { getClient } from '../context';
+import { getClient } from '../../context';
 import { Request$ } from './request';
 import { Context$ } from './context';
 import { derived, Readable } from 'svelte/store';
